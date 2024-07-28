@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { hightlightsSlides } from '../constants/Index';
 import gsap from 'gsap';
-import { playImg, replayImg } from '../utils/Index';
+import { playImg, replayImg, pauseImg } from '../utils/Index';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/all';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const VideoCarousel = () => {
   const videoRef = useRef([]);
@@ -19,6 +23,22 @@ const VideoCarousel = () => {
   });
   const { isEnd, isLastVideo, isPlaying, startPlaying, videoId } = video;
 
+  useGSAP(() => {
+    gsap.to("#video", {
+        scrollTrigger: {
+            trigger: "#video",
+            toggleActions: 'restart none none none',
+        },
+        onComplete: () => {
+            setVideo((prevVideo) => ({
+                ...prevVideo,
+                startPlaying: true,
+                isPlaying: true,
+            }))
+        }
+    })
+  },[isEnd, videoId])
+
   useEffect(() => {
     if (loadedData.length > 3) {
       if (!isPlaying) {
@@ -28,6 +48,9 @@ const VideoCarousel = () => {
       }
     }
   }, [startPlaying, isPlaying, videoId, loadedData]);
+
+  const handleLodedMetaData = (i, e) => setLoadedData
+  ((prevLoadedData) => [...prevLoadedData, e]);
 
   useEffect(() => {
     const currentProgress = 0;
@@ -99,6 +122,7 @@ const VideoCarousel = () => {
                       isPlaying: true,
                     }));
                   }}
+                  onLoadedMetadata={(e) => handleLodedMetaData(i, e)}
                 >
                   <source src={list.video} type='video/mp4' />
                 </video>
