@@ -8,11 +8,11 @@ import { ScrollTrigger } from 'gsap/all';
 gsap.registerPlugin(ScrollTrigger);
 
 const VideoCarousel = () => {
-  const videoRef = useRef([]);
-  const videoSpanRef = useRef([]);
-  const videoDivRef = useRef([]);
+  const videoRef = useRef([]); // Reference to video elements
+  const videoSpanRef = useRef([]); // Reference to progress bar spans
+  const videoDivRef = useRef([]); // Reference to progress bar containers
 
-  const [loadedData, setLoadedData] = useState([]);
+  const [loadedData, setLoadedData] = useState([]); // Tracks loaded video metadata
 
   const [video, setVideo] = useState({
     isEnd: false,
@@ -24,13 +24,13 @@ const VideoCarousel = () => {
   const { isEnd, isLastVideo, isPlaying, startPlaying, videoId } = video;
 
   useGSAP(() => {
-
+    // Animate slider translation based on videoId
     gsap.to("#slider", {
         transform: `translateX(${-100 * videoId}%)`,
         duration: 2,
         ease: 'power2.inOut'
     })
-
+    // Setup ScrollTrigger to start playing video when in view
     gsap.to("#video", {
         scrollTrigger: {
             trigger: "#video",
@@ -47,6 +47,7 @@ const VideoCarousel = () => {
   },[isEnd, videoId])
 
   useEffect(() => {
+    // Control video playback based on isPlaying state and loaded metadata
     if (loadedData.length > 3) {
       if (!isPlaying) {
         videoRef.current[videoId].pause();
