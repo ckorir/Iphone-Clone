@@ -2,6 +2,7 @@ import { useGSAP } from '@gsap/react'
 import React from 'react'
 import gsap from 'gsap'
 import { rightImg, watchImg } from '../utils/Index'
+import VideoCarousel from './VideoCarousel'
 
 const Highlights = () => {
 
@@ -17,6 +18,7 @@ const Highlights = () => {
           <h1 id='title' className='section-heading'>
             Get the highlights
           </h1>
+          
           <div className='flex flex-wrap gap-5 items-end'>
             <p className='link'>
               Watch the film
@@ -29,6 +31,7 @@ const Highlights = () => {
           </div>
         </div>
 
+      <VideoCarousel />
       </div>
 
     </section>
