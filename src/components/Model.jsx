@@ -4,6 +4,9 @@ import React, { useRef, useState } from 'react'
 import ModelView from './ModelView'
 import { yellowImg } from '../utils/Index'
 
+import * as THREE from 'three'
+import { View } from '@react-three/drei'
+
 const Model = () => {
 
   const [size,setSize] = useState('small');
@@ -17,8 +20,13 @@ const Model = () => {
   const cameraControlSmall = useRef();
   const cameraControlLarge = useRef();
 
+  // Model
   const small = useRef(new THREE.Group());
+  const large = useRef(new THREE.Group());
 
+  // Rotation
+  const [smallRotation, setSmallRotation] = useState(0);
+  const [largeRotation, setLargeRotation] = useState(0);
    
 
   useGSAP(() => {
@@ -33,7 +41,40 @@ const Model = () => {
         </h1>
         <div className='flex flex-col items-center mt-5'>
           <div className='w-full h-[75vh] md:h-[90vh] overflow-hidden relative'>
-            <ModelView />
+            <ModelView 
+              index={1}
+              groupRef={small}
+              gsapType='view1'
+              controlRef={cameraControlSmall}
+              setRotationState={setSmallRotation}
+              item={model}
+              size={size}
+            />
+            <ModelView 
+              index={2}
+              groupRef={large}
+              gsapType='view2'
+              controlRef={cameraControlLarge}
+              setRotationState={setLargeRotation}
+              item={model}
+              size={size}
+            />
+
+            <canvas
+              className='w-full h-full'
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                overflow: 'hidden'
+              }}
+              eventSource={document.getElementById('root')}
+            >
+              <View.Port />
+            </canvas>
+
           </div>
         </div>
       </div>
