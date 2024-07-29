@@ -7,6 +7,7 @@ import { models, sizes } from '../constants/Index'
 
 import * as THREE from 'three'
 import { View } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber';
 
 const Model = () => {
 
@@ -41,6 +42,7 @@ const Model = () => {
           Take a closer look
         </h1>
         <div className='flex flex-col items-center mt-5'>
+          
           <div className='w-full h-[75vh] md:h-[90vh] overflow-hidden relative'>
             <ModelView 
               index={1}
@@ -61,7 +63,7 @@ const Model = () => {
               size={size}
             />
 
-            <canvas
+            <Canvas
               className='w-full h-full'
               style={{
                 position: 'fixed',
@@ -74,7 +76,7 @@ const Model = () => {
               eventSource={document.getElementById('root')}
             >
               <View.Port />
-            </canvas>
+            </Canvas>
           </div>
 
           <div className='mx-auto w-full'>
