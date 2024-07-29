@@ -1,9 +1,16 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import React from 'react'
+import React, { useState } from 'react'
 import ModelView from './ModelView'
 
 const Model = () => {
+
+  const [size,setSize] = useState('small');
+  const [model, setModel] = useState({
+    title: 'iPhone 15 Pro in Natural Titanium',
+    color: ["#8F8A81", "#ffe7b9", "#6f6c64"],
+    img: yellowImg,
+  });
 
   useGSAP(() => {
     gsap.to("#heading", {opacity: 1,delay: 1.5,y: 0})
