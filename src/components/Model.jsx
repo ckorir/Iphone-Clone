@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import React, { useRef, useState } from 'react'
 import ModelView from './ModelView'
 import { yellowImg } from '../utils/Index'
-import { models } from '../constants/Index'
+import { models, sizes } from '../constants/Index'
 
 import * as THREE from 'three'
 import { View } from '@react-three/drei'
@@ -82,12 +82,23 @@ const Model = () => {
               <div className='flex-center'>
                 <ul className='color-container'>
                   {models.map((item, i) => (
-                    <li key={i} className='w-6 h-6 rounded-full mx-2'
+                    <li key={i} className='w-6 h-6 rounded-full mx-2 cursor-pointer'
                     style={{backgroundColor: item.color[0]}}
                     onClick={() => setModel(item)}>
                     </li>
                   ))}
                 </ul>
+
+                <button className='size-btn-container'>
+                  {sizes.map(({label, value}) => (
+                    <span key={label} className='size-btn'
+                    style={{backgroundColor: size === value ? 'white' : 'transparent',
+                    color: size === value ? 'black' : 'white'}}
+                    onClick={() => setSize(value)}>
+                      {label}
+                    </span>
+                  ))}
+                </button>
               </div>
           </div>
         </div>
