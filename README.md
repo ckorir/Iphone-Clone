@@ -1,6 +1,6 @@
 # Iphone 15 Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repo is for a website showcasing the new Iphone 15 as well as it's key features that users get to enjoy.
 
 Currently, two official plugins are available:
 
